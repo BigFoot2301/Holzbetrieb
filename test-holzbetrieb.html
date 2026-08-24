@@ -1,0 +1,445 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Holzservice, Brennholz & Räumungsarbeiten</title>
+    <style>
+        :root {
+            --bg-color: #1E1A17;
+            --sidebar-color: #14110F;
+            --card-color: #2A2420;
+            --accent-color: #C88A4B;
+            --accent-hover: #A66E38;
+            --text-color: #EFEBE9;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            display: flex;
+            height: 100vh;
+            overflow: hidden;
+        }
+
+        /* Sidebar Navigation */
+        sidebar {
+            width: 280px;
+            background-color: var(--sidebar-color);
+            padding: 30px 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            flex-shrink: 0;
+        }
+
+        .logo {
+            font-family: 'Georgia', serif;
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: var(--accent-color);
+            text-align: center;
+            line-height: 1.2;
+            margin-bottom: 25px;
+        }
+
+        .nav-btn {
+            background: transparent;
+            border: none;
+            color: var(--text-color);
+            padding: 14px 18px;
+            text-align: left;
+            font-size: 1rem;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .nav-btn:hover {
+            background-color: var(--card-color);
+        }
+
+        .nav-btn.active {
+            background-color: var(--accent-color);
+            color: #fff;
+            font-weight: bold;
+        }
+
+        /* Hauptbereich nutzt vollen Platz */
+        main {
+            flex: 1;
+            padding: 30px;
+            overflow-y: auto;
+            width: 100%;
+        }
+
+        .page {
+            display: none;
+            width: 100%;
+        }
+
+        .page.active {
+            display: block;
+        }
+
+        h1, h2 {
+            font-family: 'Georgia', serif;
+            color: var(--accent-color);
+            margin-bottom: 20px;
+        }
+
+        .card {
+            background-color: var(--card-color);
+            padding: 25px;
+            border-radius: 12px;
+            margin-bottom: 25px;
+            border: 1px solid rgba(200, 138, 75, 0.2);
+            width: 100%;
+        }
+
+        .hero {
+            border: 1px solid var(--accent-color);
+            text-align: center;
+            padding: 50px 30px;
+        }
+
+        .btn-action {
+            background-color: var(--accent-color);
+            color: white;
+            border: none;
+            padding: 12px 28px;
+            font-size: 1rem;
+            font-weight: bold;
+            border-radius: 6px;
+            cursor: pointer;
+            margin-top: 15px;
+        }
+
+        .btn-action:hover {
+            background-color: var(--accent-hover);
+        }
+
+        /* Full-Width Grid System */
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 25px;
+            width: 100%;
+        }
+
+        .card-img {
+            width: 100%;
+            height: 220px;
+            object-fit: cover;
+            border-radius: 8px;
+            margin-bottom: 15px;
+        }
+
+        .stars-select {
+            font-size: 1.3rem;
+            color: #FFD700;
+            cursor: pointer;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+            width: 100%;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+        }
+
+        input, select, textarea {
+            width: 100%;
+            padding: 12px;
+            border-radius: 6px;
+            border: 1px solid #444;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            font-size: 1rem;
+        }
+
+        textarea {
+            height: 120px;
+            resize: vertical;
+        }
+
+        .result-box {
+            font-size: 1.2rem;
+            font-weight: bold;
+            margin-top: 15px;
+            color: var(--accent-color);
+        }
+
+        .badge {
+            background-color: var(--accent-color);
+            color: white;
+            padding: 4px 10px;
+            border-radius: 4px;
+            font-size: 0.85rem;
+            display: inline-block;
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- SIDEBAR -->
+    <sidebar>
+        <div class="logo">🪵 HOLZSERVICE<br>& RÄUMUNG</div>
+        <button class="nav-btn active" onclick="showPage('home', this)">🏠 Startseite</button>
+        <button class="nav-btn" onclick="showPage('services', this)">🛠️ Leistungen & Holz</button>
+        <button class="nav-btn" onclick="showPage('reviews', this)">✍️ Rezension schreiben</button>
+        <button class="nav-btn" onclick="showPage('calculator', this)">🧮 Kostenrechner</button>
+        <button class="nav-btn" onclick="showPage('contact', this)">✉️ Anfrage stellen</button>
+    </sidebar>
+
+    <!-- HAUPTINHALT -->
+    <main>
+        <!-- 1. STARTSEITE -->
+        <div id="home" class="page active">
+            <div class="card hero">
+                <h1>Brennholz & Holzräumungsarbeiten</h1>
+                <p style="font-size: 1.1rem; max-width: 800px; margin: 0 auto;">
+                    Ihr Fachbetrieb für erstklassiges Kaminholz – flexibel bestellbar als <strong>ofenfertiges Scheitholz</strong> oder als <strong>ganze Stammware</strong>. Professionelle Räumungen und individuelle Anfragen.
+                </p>
+                <button class="btn-action" onclick="showPage('contact', document.querySelectorAll('.nav-btn')[4])">Jetzt Anfrage stellen</button>
+            </div>
+            
+            <h2>Spezialisiert auf Holzversorgung & Service</h2>
+            <div class="grid">
+                <div class="card">
+                    <img src="https://images.unsplash.com/photo-1520114878144-6123749968dd?w=800&auto=format&fit=crop" class="card-img" alt="Brennholz Scheitholz">
+                    <span class="badge">Ofenfertig oder Stammware</span>
+                    <h3>🔥 Brennholz-Verkauf</h3>
+                    <p>Wählen Sie zwischen fertig gespaltenem Kaminholz oder Stammholz zum Selbstsägen. Trocken, hochwertig und nach Wunsch geliefert.</p>
+                </div>
+                <div class="card">
+                    <img src="https://images.unsplash.com/photo-1542601906990-b4d3fb778b09?w=800&auto=format&fit=crop" class="card-img" alt="Holzräumung">
+                    <span class="badge">Profi-Räumung</span>
+                    <h3>🚜 Holzräumungsarbeiten</h3>
+                    <p>Komplette Räumung von Waldstücken, Grundstücken sowie Abtransport nach Fällungen oder Unwettern.</p>
+                </div>
+                <div class="card">
+                    <img src="https://images.unsplash.com/photo-1513836279014-a89f7a76ae86?w=800&auto=format&fit=crop" class="card-img" alt="Sonstige Holzarbeiten">
+                    <span class="badge">Individuell</span>
+                    <h3>🌲 Sonstige Anfragen</h3>
+                    <p>Sonderzuschnitte, Häckselarbeiten oder Spezialtransporte – teilen Sie uns Ihre Wünsche mit.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- 2. LEISTUNGEN & BILDER -->
+        <div id="services" class="page">
+            <h1>Unsere Lieferformen & Angebote</h1>
+            <div class="grid">
+                <div class="card">
+                    <img src="https://images.unsplash.com/photo-1546500840-ae38253aba9b?w=800&auto=format&fit=crop" class="card-img" alt="Ofenfertiges Brennholz">
+                    <h3>Ofenfertiges Brennholz</h3>
+                    <p>Gespalten auf Standardlängen (z. B. 25 cm, 33 cm oder 50 cm). Trocken gelagert und sofort einsatzbereit für Ihren Kamin oder Holzofen.</p>
+                </div>
+                <div class="card">
+                    <img src="https://images.unsplash.com/photo-1508873696983-2df515122519?w=800&auto=format&fit=crop" class="card-img" alt="Stammware Brennholz">
+                    <h3>Brennholz als Stammware</h3>
+                    <p>Ganze Holzstämme (3m bis 5m Längen) zur eigenen Weiterverarbeitung. Die kostengünstige Alternative für Selbstwerber.</p>
+                </div>
+                <div class="card">
+                    <img src="https://images.unsplash.com/photo-1589939705384-5185137a7f0f?w=800&auto=format&fit=crop" class="card-img" alt="Grundstücks- und Holzräumung">
+                    <h3>Holzräumung & Beräumung</h3>
+                    <p>Wir räumen Sturmschäden, gefälltes Stammholz, Geäst und Schlagabraum fachgerecht von Ihrem Grundstück ab.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- 3. SELBST SCHREIBENDE REZENSIONEN -->
+        <div id="reviews" class="page">
+            <h1>Bewertung schreiben & Feedback</h1>
+            <div class="grid">
+                <!-- Formular -->
+                <div class="card">
+                    <h3>Ihre Rezension verfassen</h3>
+                    <form onsubmit="addReview(event)">
+                        <div class="form-group">
+                            <label>Ihr Name:</label>
+                            <input type="text" id="revName" required placeholder="z. B. Max Mustermann">
+                        </div>
+                        <div class="form-group">
+                            <label>Bewertung:</label>
+                            <select id="revStars">
+                                <option value="★★★★★">★★★★★ (5/5 Sterne)</option>
+                                <option value="★★★★☆">★★★★☆ (4/5 Sterne)</option>
+                                <option value="★★★☆☆">★★★☆☆ (3/5 Sterne)</option>
+				<option value="★★☆☆☆">★★☆☆☆ (2/5 Sterne)</option>
+				<option value="★☆☆☆☆">★☆☆☆☆ (1/5 Sterne)</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Ihre Erfahrung / Kommentar:</label>
+                            <textarea id="revText" required placeholder="Wie zufrieden waren Sie mit dem Brennholz oder der Holzräumung?"></textarea>
+                        </div>
+                        <button type="submit" class="btn-action">Rezension veröffentlichen</button>
+                    </form>
+                </div>
+
+                <!-- Liste der verfassten Rezensionen -->
+                <div class="card">
+                    <h3>Kundenrezensionen (<span id="revCount">0</span>)</h3>
+                    <div id="reviewsContainer">
+                        <p id="noReviewsText" style="color: #aaa; margin-top: 10px;">Noch keine Rezensionen verfasst. Schreiben Sie die erste!</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 4. RECHNER -->
+        <div id="calculator" class="page">
+            <h1>Brennholz-Kostenrechner</h1>
+            <div class="card">
+                <div class="grid">
+                    <div>
+                        <div class="form-group">
+                            <label>Lieferform:</label>
+                            <select id="calcForm">
+                                <option value="1.0">Ofenfertig (gespalten)</option>
+                                <option value="0.75">Stammware (unbearbeitet)</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Holzart:</label>
+                            <select id="woodType">
+                                <option value="110">Buche / Eiche (Hartholz)</option>
+                                <option value="75">Fichte / Nadelholz (Weichholz)</option>
+                                <option value="95">Gemischtes Holz</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Menge in Schüttraummeter (SRM) / Raummeter (RM):</label>
+                            <input type="number" id="amountInput" placeholder="z. B. 5">
+                        </div>
+                        <button class="btn-action" onclick="calculatePrice()">Kosten berechnen</button>
+                    </div>
+                    <div>
+                        <div id="calcResult" class="result-box" style="margin-top: 25px;"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 5. KONTAKT -->
+        <div id="contact" class="page">
+            <h1>Anfrage stellen</h1>
+            <div class="card">
+                <form onsubmit="sendForm(event)">
+                    <div class="grid">
+                        <div>
+                            <div class="form-group">
+                                <label>Anfragetyp:</label>
+                                <select required>
+                                    <option value="brennholz_fertig">Brennholz (ofenfertig)</option>
+                                    <option value="brennholz_stamm">Brennholz (Stammware)</option>
+                                    <option value="raeumung">Holzräumungsarbeiten</option>
+                                    <option value="sonstiges">Sonstige Anfrage</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label>Ihr Name:</label>
+                                <input type="text" required placeholder="Max Mustermann">
+                            </div>
+                            <div class="form-group">
+                                <label>Kontakt (E-Mail / Telefon):</label>
+                                <input type="text" required placeholder="name@beispiel.de oder Telefonnummer">
+                            </div>
+                        </div>
+                        <div>
+                            <div class="form-group">
+                                <label>Ihre Nachricht / Projektdetails:</label>
+                                <textarea style="height: 195px;" required placeholder="Beschreiben Sie Ihre Anfrage (Menge, Wunsch-Lieferdatum, Standort für Räumungen etc.)..."></textarea>
+                            </div>
+                            <button type="submit" class="btn-action" style="width: 100%;">Anfrage Absenden</button>
+                        </div>
+                    </div>
+                    <div id="formSuccess" class="result-box" style="color: #66BB6A;"></div>
+                </form>
+            </div>
+        </div>
+    </main>
+
+    <!-- JAVASCRIPT LOGIK -->
+    <script>
+        function showPage(pageId, btnElement) {
+            document.querySelectorAll('.page').forEach(page => page.classList.remove('active'));
+            document.querySelectorAll('.nav-btn').forEach(btn => btn.classList.remove('active'));
+
+            document.getElementById(pageId).classList.add('active');
+            btnElement.classList.add('active');
+        }
+
+        // Rechner mit Berücksichtigung von Stammware / Fertigholz
+        function calculatePrice() {
+            const basePrice = parseFloat(document.getElementById('woodType').value);
+            const formFactor = parseFloat(document.getElementById('calcForm').value);
+            const amount = parseFloat(document.getElementById('amountInput').value);
+            const resultDiv = document.getElementById('calcResult');
+
+            if (isNaN(amount) || amount <= 0) {
+                resultDiv.innerText = 'Bitte eine gültige Menge eingeben.';
+                return;
+            }
+
+            const total = basePrice * formFactor * amount;
+            resultDiv.innerHTML = `
+                <p>Geschätzter Gesamtpreis:</p>
+                <p style="font-size: 2rem; color: var(--accent-color);">${total.toLocaleString('de-DE', {minimumFractionDigits: 2})} €</p>
+                <p style="font-size: 0.9rem; color: #aaa; font-weight: normal;">(zzgl. evtl. Lieferkosten / nach Absprache)</p>
+            `;
+        }
+
+        // Dynamisches Rezensionssystem
+        let reviewCounter = 0;
+        function addReview(event) {
+            event.preventDefault();
+            
+            const name = document.getElementById('revName').value;
+            const stars = document.getElementById('revStars').value;
+            const text = document.getElementById('revText').value;
+
+            const noText = document.getElementById('noReviewsText');
+            if (noText) noText.remove();
+
+            const container = document.getElementById('reviewsContainer');
+            
+            const revCard = document.createElement('div');
+            revCard.style.cssText = "background: var(--bg-color); padding: 15px; border-radius: 8px; margin-bottom: 15px; border-left: 4px solid var(--accent-color);";
+            revCard.innerHTML = `
+                <div style="color: #FFD700; margin-bottom: 5px;">${stars}</div>
+                <p style="font-style: italic; color: var(--text-color);">"${text}"</p>
+                <p style="margin-top: 8px; font-weight: bold; color: var(--accent-color); font-size: 0.9rem;">– ${name}</p>
+            `;
+
+            container.prepend(revCard);
+
+            reviewCounter++;
+            document.getElementById('revCount').innerText = reviewCounter;
+
+            // Formular zurücksetzen
+            document.getElementById('revName').value = '';
+            document.getElementById('revText').value = '';
+        }
+
+        function sendForm(event) {
+            event.preventDefault();
+            document.getElementById('formSuccess').innerText = '✓ Ihre Anfrage wurde erfolgreich übermittelt!';
+        }
+    </script>
+</body>
+</html>
