@@ -209,6 +209,11 @@
                 top: 0;
                 z-index: 100;
                 box-shadow: 0 4px 10px rgba(0,0,0,0.5);
+                display: flex;
+                flex-direction: row;
+                flex-wrap: wrap;
+                align-items: center;
+                justify-content: space-between;
             }
 
             .logo {
@@ -222,15 +227,6 @@
 
             .logo br {
                 display: none;
-            }
-
-            /* Horizontale Menüleiste für Smartphones */
-            sidebar {
-                display: flex;
-                flex-direction: row;
-                flex-wrap: wrap;
-                align-items: center;
-                justify-content: space-between;
             }
 
             .nav-container {
@@ -299,7 +295,7 @@
             <div class="card hero">
                 <h1>Forstbetrieb Schneider</h1>
                 <p style="font-size: 1.1rem; max-width: 800px; margin: 0 auto;">
-                    Ihr Fachbetrieb für erstklassiges Kaminholz – flexibel bestellbar als <strong>ofenfertiges Scheitholz</strong> oder als <strong>ganze Stammware</strong>. Professionelle Räumungen und individuelle Anfragen[cite: 1].
+                    Ihr Fachbetrieb für erstklassiges Kaminholz – flexibel bestellbar als <strong>ofenfertiges Scheitholz</strong> oder als <strong>ganze Stammware</strong>. Professionelle Räumungen und individuelle Anfragen.
                 </p>
                 <button class="btn-action" onclick="showPage('contact', document.querySelectorAll('.nav-btn')[4])">Jetzt Anfrage stellen</button>
             </div>
@@ -310,19 +306,19 @@
                     <img src="https://media.hornbach.de/mp/packshot/58284bde-582f-40bb-b272-cf3f5779c6fc?size=1400" class="card-img" alt="Brennholz Scheitholz">
                     <span class="badge">Ofenfertig oder Stammware</span>
                     <h3>🔥 Brennholz-Verkauf</h3>
-                    <p>Wählen Sie zwischen fertig gespaltenem Kaminholz oder Stammholz zum Selbstsägen. Trocken, hochwertig und nach Wunsch geliefert[cite: 1].</p>
+                    <p>Wählen Sie zwischen fertig gespaltenem Kaminholz oder Stammholz zum Selbstsägen. Trocken, hochwertig und nach Wunsch geliefert.</p>
                 </div>
                 <div class="card">
                     <img src="https://www.baessler-holzbau.de/fileadmin/_processed_/c/d/csm_baessler_wald_holz_042_0619fe1ee3.webp" class="card-img" alt="Holzräumung">
                     <span class="badge">Profi-Räumung</span>
                     <h3>🚜 Holzräumungsarbeiten</h3>
-                    <p>Komplette Räumung von Waldstücken, Grundstücken sowie Abtransport nach Fällungen oder Unwettern[cite: 1].</p>
+                    <p>Komplette Räumung von Waldstücken, Grundstücken sowie Abtransport nach Fällungen oder Unwettern.</p>
                 </div>
                 <div class="card">
                     <img src="https://images.unsplash.com/photo-1513836279014-a89f7a76ae86?w=800&auto=format&fit=crop" class="card-img" alt="Sonstige Holzarbeiten">
                     <span class="badge">Individuell</span>
                     <h3>🌲 Sonstige Anfragen</h3>
-                    <p>Sonderzuschnitte, Häckselarbeiten oder Spezialtransporte – teilen Sie uns Ihre Wünsche mit[cite: 1].</p>
+                    <p>Sonderzuschnitte, Häckselarbeiten oder Spezialtransporte – teilen Sie uns Ihre Wünsche mit.</p>
                 </div>
             </div>
         </div>
@@ -334,17 +330,17 @@
                 <div class="card">
                     <img src="https://media.hornbach.de/mp/packshot/58284bde-582f-40bb-b272-cf3f5779c6fc?size=1400" class="card-img" alt="Ofenfertiges Brennholz">
                     <h3>Ofenfertiges Brennholz</h3>
-                    <p>Gespalten auf Standardlängen (z. B. 25 cm, 33 cm oder 50 cm). Trocken gelagert und sofort einsatzbereit für Ihren Kamin oder Holzofen[cite: 1].</p>
+                    <p>Gespalten auf Standardlängen (z. B. 25 cm, 33 cm oder 50 cm). Trocken gelagert und sofort einsatzbereit für Ihren Kamin oder Holzofen.</p>
                 </div>
                 <div class="card">
                     <img src="https://superfoodswitch.com/wp-content/uploads/2024/04/baumstaemme-fuer-die-wohnung.webp" class="card-img" alt="Stammware Brennholz">
                     <h3>Brennholz als Stammware</h3>
-                    <p>Ganze Holzstämme (3m bis 5m Längen) zur eigenen Weiterverarbeitung. Die kostengünstige Alternative für Selbstwerber[cite: 1].</p>
+                    <p>Ganze Holzstämme (3m bis 5m Längen) zur eigenen Weiterverarbeitung. Die kostengünstige Alternative für Selbstwerber.</p>
                 </div>
                 <div class="card">
                     <img src="https://www.baessler-holzbau.de/fileadmin/_processed_/c/d/csm_baessler_wald_holz_042_0619fe1ee3.webp" class="card-img" alt="Grundstücks- und Holzräumung">
                     <h3>Holzräumung & Beräumung</h3>
-                    <p>Wir räumen Sturmschäden, gefälltes Stammholz, Geäst und Schlagabraum fachgerecht von Ihrem Grundstück ab[cite: 1].</p>
+                    <p>Wir räumen Sturmschäden, gefälltes Stammholz, Geäst und Schlagabraum fachgerecht von Ihrem Grundstück ab.</p>
                 </div>
             </div>
         </div>
@@ -383,7 +379,7 @@
                 <div class="card">
                     <h3>Kundenrezensionen (<span id="revCount">0</span>)</h3>
                     <div id="reviewsContainer">
-                        <p id="noReviewsText" style="color: #aaa; margin-top: 10px;">Noch keine Rezensionen verfasst. Schreiben Sie die erste![cite: 1]</p>
+                        <p id="noReviewsText" style="color: #aaa; margin-top: 10px;">Noch keine Rezensionen verfasst. Schreiben Sie die erste!</p>
                     </div>
                 </div>
             </div>
