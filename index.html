@@ -29,14 +29,14 @@
             overflow: hidden;
         }
 
-        /* Sidebar Navigation (PC Standard) */
+        /* Sidebar Navigation */
         sidebar {
             width: 280px;
             background-color: var(--sidebar-color);
             padding: 30px 20px;
             display: flex;
             flex-direction: column;
-            gap: 15px;
+            justify-content: space-between; /* Schiebt das Impressum nach unten */
             flex-shrink: 0;
         }
 
@@ -81,7 +81,28 @@
             font-weight: bold;
         }
 
-        /* Hauptbereich nutzt vollen Platz */
+        /* Footerbereich in der Sidebar für Impressum */
+        .sidebar-footer {
+            margin-top: auto;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .impressum-link {
+            color: #aaa;
+            text-decoration: none;
+            font-size: 0.9rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            transition: color 0.2s;
+        }
+
+        .impressum-link:hover {
+            color: var(--accent-color);
+        }
+
+        /* Hauptbereich */
         main {
             flex: 1;
             padding: 30px;
@@ -135,7 +156,6 @@
             background-color: var(--accent-hover);
         }
 
-        /* Full-Width Grid System */
         .grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
@@ -149,12 +169,6 @@
             object-fit: cover;
             border-radius: 8px;
             margin-bottom: 15px;
-        }
-
-        .stars-select {
-            font-size: 1.3rem;
-            color: #FFD700;
-            cursor: pointer;
         }
 
         .form-group {
@@ -217,23 +231,7 @@
                 top: 0;
                 z-index: 100;
                 box-shadow: 0 4px 10px rgba(0,0,0,0.5);
-                flex-direction: row;
-                flex-wrap: wrap;
-                align-items: center;
-                justify-content: space-between;
-            }
-
-            .logo {
-                font-size: 1.2rem;
-                margin-bottom: 10px;
-                display: flex;
-                align-items: center;
-                justify-content: center;
-                gap: 10px;
-            }
-
-            .logo br {
-                display: none;
+                flex-direction: column;
             }
 
             .nav-container {
@@ -250,6 +248,13 @@
                 padding: 8px 14px;
                 font-size: 0.9rem;
                 flex-shrink: 0;
+            }
+
+            .sidebar-footer {
+                margin-top: 5px;
+                padding-top: 10px;
+                width: 100%;
+                text-align: left;
             }
 
             main {
@@ -285,13 +290,20 @@
 
     <!-- SIDEBAR -->
     <sidebar>
-        <div class="logo">🪵 Forstbetrieb Schneider</div>
-        <div class="nav-container">
-            <button class="nav-btn active" onclick="showPage('home', this)">🏠 Startseite</button>
-            <button class="nav-btn" onclick="showPage('services', this)">🛠️ Leistungen & Holz</button>
-            <button class="nav-btn" onclick="showPage('reviews', this)">✍️ Rezension schreiben</button>
-            <button class="nav-btn" onclick="showPage('calculator', this)">🧮 Kostenrechner</button>
-            <button class="nav-btn" onclick="showPage('contact', this)">✉️ Anfrage stellen</button>
+        <div>
+            <div class="logo">🪵 Forstbetrieb Schneider</div>
+            <div class="nav-container">
+                <button class="nav-btn active" onclick="showPage('home', this)">🏠 Startseite</button>
+                <button class="nav-btn" onclick="showPage('services', this)">🛠️ Leistungen & Holz</button>
+                <button class="nav-btn" onclick="showPage('reviews', this)">✍️ Rezension schreiben</button>
+                <button class="nav-btn" onclick="showPage('calculator', this)">🧮 Kostenrechner</button>
+                <button class="nav-btn" onclick="showPage('contact', this)">✉️ Anfrage stellen</button>
+            </div>
+        </div>
+
+        <!-- IMPRESSUM LINK UNTEN LINKS -->
+        <div class="sidebar-footer">
+            <a href="impressum.html" class="impressum-link">⚖️ Impressum & Rechtliches</a>
         </div>
     </sidebar>
 
@@ -352,11 +364,10 @@
             </div>
         </div>
 
-        <!-- 3. SELBST SCHREIBENDE REZENSIONEN -->
+        <!-- 3. REZENSIONEN -->
         <div id="reviews" class="page">
             <h1>Bewertung schreiben & Feedback</h1>
             <div class="grid">
-                <!-- Formular -->
                 <div class="card">
                     <h3>Ihre Rezension verfassen</h3>
                     <form onsubmit="addReview(event)">
@@ -382,7 +393,6 @@
                     </form>
                 </div>
 
-                <!-- Liste der verfassten Rezensionen -->
                 <div class="card">
                     <h3>Kundenrezensionen (<span id="revCount">0</span>)</h3>
                     <div id="reviewsContainer">
@@ -426,40 +436,43 @@
             </div>
         </div>
 
-        <!-- 5. KONTAKT -->
+        <!-- 5. KONTAKT MIT E-MAIL-FUNKTION (FORMSUBMIT) -->
         <div id="contact" class="page">
             <h1>Anfrage stellen</h1>
             <div class="card">
-                <form onsubmit="sendForm(event)">
+                <!-- Ersetze DEINE-EMAIL@BEISPIEL.DE durch deine echte E-Mail-Adresse -->
+                <form action="https://formsubmit.co/tim.leon.braun@gmail.com" method="POST">
+                    <input type="hidden" name="_captcha" value="false">
+                    <input type="hidden" name="_next" value="https://bigfoot2301.github.io/Holzbetrieb/">
+
                     <div class="grid">
                         <div>
                             <div class="form-group">
                                 <label>Anfragetyp:</label>
-                                <select required>
-                                    <option value="brennholz_fertig">Brennholz (ofenfertig)</option>
-                                    <option value="brennholz_stamm">Brennholz (Stammware)</option>
-                                    <option value="raeumung">Holzräumungsarbeiten</option>
-                                    <option value="sonstiges">Sonstige Anfrage</option>
+                                <select name="Anfragetyp" required>
+                                    <option value="Brennholz ofenfertig">Brennholz (ofenfertig)</option>
+                                    <option value="Brennholz Stammware">Brennholz (Stammware)</option>
+                                    <option value="Holzraeumung">Holzräumungsarbeiten</option>
+                                    <option value="Sonstiges">Sonstige Anfrage</option>
                                 </select>
                             </div>
                             <div class="form-group">
                                 <label>Ihr Name:</label>
-                                <input type="text" required placeholder="Max Mustermann">
+                                <input type="text" name="Name" required placeholder="Max Mustermann">
                             </div>
                             <div class="form-group">
                                 <label>Kontakt (E-Mail / Telefon):</label>
-                                <input type="text" required placeholder="name@beispiel.de oder Telefonnummer">
+                                <input type="text" name="Kontakt" required placeholder="name@beispiel.de oder Telefonnummer">
                             </div>
                         </div>
                         <div>
                             <div class="form-group">
                                 <label>Ihre Nachricht / Projektdetails:</label>
-                                <textarea style="height: 195px;" required placeholder="Beschreiben Sie Ihre Anfrage (Menge, Wunsch-Lieferdatum, Standort für Räumungen etc.)..."></textarea>
+                                <textarea name="Nachricht" style="height: 195px;" required placeholder="Beschreiben Sie Ihre Anfrage (Menge, Wunsch-Lieferdatum, Standort für Räumungen etc.)..."></textarea>
                             </div>
                             <button type="submit" class="btn-action" style="width: 100%;">Anfrage Absenden</button>
                         </div>
                     </div>
-                    <div id="formSuccess" class="result-box" style="color: #66BB6A;"></div>
                 </form>
             </div>
         </div>
@@ -472,10 +485,9 @@
             document.querySelectorAll('.nav-btn').forEach(btn => btn.classList.remove('active'));
 
             document.getElementById(pageId).classList.add('active');
-            btnElement.classList.add('active');
+            if (btnElement) btnElement.classList.add('active');
         }
 
-        // Rechner mit Berücksichtigung von Stammware / Fertigholz
         function calculatePrice() {
             const basePrice = parseFloat(document.getElementById('woodType').value);
             const formFactor = parseFloat(document.getElementById('calcForm').value);
@@ -495,7 +507,6 @@
             `;
         }
 
-        // Dynamisches Rezensionssystem
         let reviewCounter = 0;
         function addReview(event) {
             event.preventDefault();
@@ -522,14 +533,8 @@
             reviewCounter++;
             document.getElementById('revCount').innerText = reviewCounter;
 
-            // Formular zurücksetzen
             document.getElementById('revName').value = '';
             document.getElementById('revText').value = '';
-        }
-
-        function sendForm(event) {
-            event.preventDefault();
-            document.getElementById('formSuccess').innerText = '✓ Ihre Anfrage wurde erfolgreich übermittelt!';
         }
     </script>
 </body>
