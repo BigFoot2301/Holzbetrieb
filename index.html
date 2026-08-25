@@ -29,7 +29,7 @@
             overflow: hidden;
         }
 
-        /* Sidebar Navigation */
+        /* Sidebar Navigation Desktop */
         sidebar {
             width: 280px;
             background-color: var(--sidebar-color);
@@ -82,7 +82,7 @@
             font-weight: bold;
         }
 
-        /* Footerbereich in der Sidebar für Impressum */
+        /* Footerbereich in der Sidebar auf Desktop */
         .sidebar-footer {
             margin-top: auto;
             padding-top: 20px;
@@ -91,18 +91,6 @@
 
         .impressum-link {
             color: #aaa;
-            background: transparent;
-            border: none;
-            font-size: 0.9rem;
-            display: inline-flex;
-            align-items: center;
-            gap: 6px;
-            transition: color 0.2s;
-            cursor: pointer;
-            width: 100%;
-            text-align: left;
-            padding: 8px 10px;
-            border-radius: 6px;
         }
 
         .impressum-link:hover {
@@ -241,6 +229,10 @@
                 flex-direction: column;
             }
 
+            .logo {
+                margin-bottom: 10px;
+            }
+
             .nav-container {
                 flex-direction: row;
                 overflow-x: auto;
@@ -257,11 +249,13 @@
                 flex-shrink: 0;
             }
 
+            /* Impressum wird am Handy in die Reihe eingefügt */
             .sidebar-footer {
-                margin-top: 5px;
-                padding-top: 10px;
-                width: 100%;
-                text-align: left;
+                display: contents;
+            }
+
+            .impressum-link {
+                color: var(--text-color);
             }
 
             main {
@@ -305,12 +299,12 @@
                 <button class="nav-btn" onclick="showPage('reviews', this)">✍️ Rezension schreiben</button>
                 <button class="nav-btn" onclick="showPage('calculator', this)">🧮 Kostenrechner</button>
                 <button class="nav-btn" onclick="showPage('contact', this)">✉️ Anfrage stellen</button>
+                
+                <!-- Am Handy als normale Spalte, auf Desktop unten getrennt -->
+                <div class="sidebar-footer">
+                    <button class="nav-btn impressum-link" onclick="showPage('impressum', this)">⚖️ Impressum & Rechtliches</button>
+                </div>
             </div>
-        </div>
-
-        <!-- IMPRESSUM LINK UNTEN LINKS -->
-        <div class="sidebar-footer">
-            <button class="impressum-link nav-btn" onclick="showPage('impressum', this)">⚖️ Impressum & Rechtliches</button>
         </div>
     </sidebar>
 
@@ -447,7 +441,6 @@
         <div id="contact" class="page">
             <h1>Anfrage stellen</h1>
             <div class="card">
-                <!-- Ersetze DEINE-EMAIL@BEISPIEL.DE durch deine echte E-Mail-Adresse -->
                 <form action="https://formsubmit.co/DEINE-EMAIL@BEISPIEL.DE" method="POST">
                     <input type="hidden" name="_captcha" value="false">
                     <input type="hidden" name="_next" value="https://bigfoot2301.github.io/Holzbetrieb/">
