@@ -36,7 +36,7 @@
             padding: 30px 20px;
             display: flex;
             flex-direction: column;
-            justify-content: space-between; /* Schiebt das Impressum nach unten */
+            justify-content: space-between;
             flex-shrink: 0;
         }
 
@@ -48,6 +48,7 @@
             text-align: center;
             line-height: 1.2;
             margin-bottom: 25px;
+            cursor: pointer;
         }
 
         .nav-container {
@@ -90,12 +91,18 @@
 
         .impressum-link {
             color: #aaa;
-            text-decoration: none;
+            background: transparent;
+            border: none;
             font-size: 0.9rem;
             display: inline-flex;
             align-items: center;
             gap: 6px;
             transition: color 0.2s;
+            cursor: pointer;
+            width: 100%;
+            text-align: left;
+            padding: 8px 10px;
+            border-radius: 6px;
         }
 
         .impressum-link:hover {
@@ -291,7 +298,7 @@
     <!-- SIDEBAR -->
     <sidebar>
         <div>
-            <div class="logo">🪵 Forstbetrieb Schneider</div>
+            <div class="logo" onclick="showPage('home', document.querySelectorAll('.nav-btn')[0])">🪵 Forstbetrieb Schneider</div>
             <div class="nav-container">
                 <button class="nav-btn active" onclick="showPage('home', this)">🏠 Startseite</button>
                 <button class="nav-btn" onclick="showPage('services', this)">🛠️ Leistungen & Holz</button>
@@ -303,7 +310,7 @@
 
         <!-- IMPRESSUM LINK UNTEN LINKS -->
         <div class="sidebar-footer">
-            <a href="impressum.html" class="impressum-link">⚖️ Impressum & Rechtliches</a>
+            <button class="impressum-link nav-btn" onclick="showPage('impressum', this)">⚖️ Impressum & Rechtliches</button>
         </div>
     </sidebar>
 
@@ -476,6 +483,24 @@
                 </form>
             </div>
         </div>
+
+        <!-- 6. IMPRESSUM -->
+        <div id="impressum" class="page">
+            <h1>Impressum & Rechtliches</h1>
+            <div class="card">
+                <h3>Angaben gemäß § 5 TMG</h3>
+                <p style="margin-top: 10px; line-height: 1.6;">
+                    Forstbetrieb Schneider<br>
+                    Musterstraße 1<br>
+                    12345 Musterstadt
+                </p>
+                <h3 style="margin-top: 20px;">Kontakt</h3>
+                <p style="margin-top: 10px; line-height: 1.6;">
+                    Telefon: +49 (0) 123 456789<br>
+                    E-Mail: info@beispiel.de
+                </p>
+            </div>
+        </div>
     </main>
 
     <!-- JAVASCRIPT LOGIK -->
@@ -484,8 +509,19 @@
             document.querySelectorAll('.page').forEach(page => page.classList.remove('active'));
             document.querySelectorAll('.nav-btn').forEach(btn => btn.classList.remove('active'));
 
-            document.getElementById(pageId).classList.add('active');
-            if (btnElement) btnElement.classList.add('active');
+            const targetPage = document.getElementById(pageId);
+            if (targetPage) {
+                targetPage.classList.add('active');
+            }
+
+            if (btnElement) {
+                btnElement.classList.add('active');
+            }
+
+            const mainContent = document.querySelector('main');
+            if (mainContent) {
+                mainContent.scrollTop = 0;
+            }
         }
 
         function calculatePrice() {
